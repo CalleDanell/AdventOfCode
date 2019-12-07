@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AOC.Days
@@ -8,10 +9,13 @@ namespace AOC.Days
         public async Task<(string, string)> Solve(string day)
         {
             var input = await InputHandler.GetInputByCommaSeparationAsync(day);
-            var intInput = input.Select(int.Parse).ToList();
+            var intInput1 = input.Select(int.Parse).ToList();
+            var intInput2 = input.Select(int.Parse).ToList();
 
+            var result1 = IntCodeComputer.GetProgramOutputByInput(intInput1, 1);
+            var result2 = IntCodeComputer.GetProgramOutputByInput(intInput2, 5);
 
-            return (string.Empty, string.Empty);
+            return (result1.ToString(), result2.ToString());
         }
     }
 }
