@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 
 namespace AOC
 {
     public static class IntCodeComputer
     {
-        private static int input;
+        private static int[] input;
 
         public static int GetNounAndVerbForOutput(List<int> program, int maxParameterValue, int outputValue)
         {
@@ -35,7 +34,7 @@ namespace AOC
             return program[0];
         }
 
-        public static int GetProgramOutputByInput(List<int> program, int userInput)
+        public static int GetProgramOutputByInput(List<int> program, params int[] userInput)
         {
             var counter = 0;
             input = userInput;
@@ -101,8 +100,11 @@ namespace AOC
                     return true;
 
                 case OperationCode.Input:
-                    instructions[instructions[counter + 1]] = input;
+                    instructions[instructions[counter + 1]] = input[0];
                     counter += 2;
+                    var inputList = input.ToList();
+                    inputList.RemoveAt(0);
+                    input = inputList.ToArray();
 
                     return true;
 
@@ -170,9 +172,9 @@ namespace AOC
             }
         }
 
-        private static int GetParameter(IList<int> instructions, int counter, int param1, int index)
+        private static int GetParameter(IList<int> instructions, int counter, int param, int index)
         {
-            return param1 == 0 ? instructions[instructions[counter + index]] : instructions[counter + index];
+            return param == 0 ? instructions[instructions[counter + index]] : instructions[counter + index];
         }
     }
 }
