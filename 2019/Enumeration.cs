@@ -1,4 +1,4 @@
-﻿namespace AOC
+﻿namespace _2019
 {
     public enum OperationCode
     {

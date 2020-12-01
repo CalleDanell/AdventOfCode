@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AOC
+namespace Common
 {
     public static class InputHandler
     {

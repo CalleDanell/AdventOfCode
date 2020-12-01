@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using _2019.Days;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using AOC.Days;
 
-namespace AOC
+namespace _2019
 {
     class Program
     {

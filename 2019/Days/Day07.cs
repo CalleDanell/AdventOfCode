@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Common;
+using Common.Days;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AOC.Days
+namespace _2019.Days
 {
     public class Day07 : IDay
     {

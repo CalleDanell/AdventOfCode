@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Common;
+using Common.Days;
+using System.Threading.Tasks;
 
-namespace AOC.Days
+namespace _2019.Days
 {
     public class Day11 : IDay
     {

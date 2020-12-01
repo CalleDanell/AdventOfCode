@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AOC
+namespace _2019
 {
     public class IntCodeComputer
     {
