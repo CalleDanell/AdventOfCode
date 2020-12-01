@@ -4,38 +4,50 @@ using System.Threading.Tasks;
 
 namespace AOC.Days
 {
-    public class Day7 : IDay
+    public class Day07 : IDay
     {
         public async Task<(string, string)> Solve(string day)
         {
             var instructions = await InputHandler.GetInputByCommaSeparationAsync(day);
             var program = instructions.Select(int.Parse).ToList();
 
-            int[] validNumbers = { 0, 1, 2, 3, 4 };
-            var combinations = GetPermutations(validNumbers, 5).ToList();
+            int[] validNumbersOne = { 0, 1, 2, 3, 4 };
+            int[] validNumbersTwo = { 5, 6, 7, 8, 9 };
 
+            var list = new List<IEnumerable<int>>();
+            list.Add(new List<int> { 9, 8, 7, 6, 5 });
+            //var result1 = GetMaxOutput(GetPermutations(validNumbersTwo, 5).ToList(), program);
+            var result1 = GetMaxOutput(list, program);;
+            //var result1 = string.Empty;
+            //var result2 = GetMaxOutputWithFeedbackLoop(GetPermutations(validNumbersTwo, 5).ToList(), program);
+
+            return (result1, string.Empty);
+        }
+
+        private static string GetMaxOutput(List<IEnumerable<int>> combinations, List<int> program)
+        {
             var maxOutput = 0;
             while (combinations.Count > 0)
             {
                 var programOutput = 0;
                 var setting = combinations.ElementAt(0);
+
                 for (var j = 0; j < 5; j++)
                 {
-                   programOutput = IntCodeComputer.GetProgramOutputByInput(new List<int>(program), setting.ElementAt(j), programOutput);
+                    var computer = new IntCodeComputer(program);
+                    computer.Input(setting.ElementAt(j), programOutput);
+                    programOutput = computer.Run();
                 }
 
                 if (maxOutput < programOutput)
                 {
                     maxOutput = programOutput;
                 }
-                
+
                 combinations.Remove(setting);
             }
 
-            var result1 = maxOutput.ToString();
-            var result2 = string.Empty;
-
-            return (result1, result2.ToString());
+            return maxOutput.ToString();
         }
 
         private static IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> list, int length)

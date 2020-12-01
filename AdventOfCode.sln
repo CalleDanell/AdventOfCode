@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2019", "AOC\2019.csproj", "{9F799EFB-B942-4FE3-834C-60CA9F4CC0AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2019", "2019/2019.csproj", "{9F799EFB-B942-4FE3-834C-60CA9F4CC0AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020", "..\2020\2020.csproj", "{A6CB826F-E4C2-4AE0-AE5C-95E88A252BEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020", "2020/2020.csproj", "{A6CB826F-E4C2-4AE0-AE5C-95E88A252BEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{ADF473FE-17F4-4B28-AB44-6E2837476061}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common/Common.csproj", "{ADF473FE-17F4-4B28-AB44-6E2837476061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AOC.Days
 {
-    public class Day4 : IDay
+    public class Day04 : IDay
     {
         public async Task<(string, string)> Solve(string day)
         {

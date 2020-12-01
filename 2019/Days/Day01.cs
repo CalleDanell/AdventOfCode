@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AOC.Days
 {
-    public class Day1 : IDay
+    public class Day01 : IDay
     {
         public async Task<(string, string)> Solve(string day)
         {

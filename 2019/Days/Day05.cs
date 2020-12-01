@@ -5,16 +5,22 @@ using System.Threading.Tasks;
 
 namespace AOC.Days
 {
-    public class Day5 : IDay
+    public class Day05 : IDay
     {
         public async Task<(string, string)> Solve(string day)
         {
             var input = await InputHandler.GetInputByCommaSeparationAsync(day);
-            var intInput1 = input.Select(int.Parse).ToList();
-            var intInput2 = new List<int>(intInput1);
+            var intInput = input.Select(int.Parse).ToList();
 
-            var result1 = IntCodeComputer.GetProgramOutputByInput(intInput1, 1);
-            var result2 = IntCodeComputer.GetProgramOutputByInput(intInput2, 5);
+            var computer = new IntCodeComputer(new List<int>(intInput));
+
+            computer.Input(1);
+            var result1 = computer.Run();
+
+            computer.Restore();
+
+            computer.Input(5);
+            var result2 = computer.Run();
 
             return (result1.ToString(), result2.ToString());
         }

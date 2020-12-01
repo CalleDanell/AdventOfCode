@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace AOC.Days
 {
-    public class Day6 : IDay
+    public class Day06 : IDay
     {
         private const string CenterOfMass = "COM";
         private const string You = "YOU";
