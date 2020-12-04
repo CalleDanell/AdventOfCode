@@ -28,7 +28,7 @@ namespace _2019
             pointer = 0;
         }
 
-        public bool IsRunning { get; set; }
+        public ComputerState ComputerState { get; set; }
 
         public void SetNounAndVerb(int noun, int verb)
         {
@@ -38,14 +38,11 @@ namespace _2019
         
         public int Run()
         {
-            IsRunning = true;
-            while (pointer < instructions.Count && IsRunning)
+            ComputerState = ComputerState.Running;
+            while (ComputerState == ComputerState.Running)
             {
                 var operation = GetOperation(instructions[pointer]);
-                if (!Execute(operation))
-                {
-                    break;
-                }
+                Execute(operation);
             }
 
             return instructions[0];
@@ -56,118 +53,98 @@ namespace _2019
             return i.ToString().PadLeft(5, '0');
         }
 
-        private bool Execute(string operation)
+        private ComputerState Execute(string operation)
         {
-            var code = (OperationCode)int.Parse(operation.Substring(4, 1));
+            var code = (OperationCode)int.Parse(operation.Substring(3,2));
 
             var parameterMode = operation.ToCharArray();
             var modeOne = int.Parse(parameterMode[2].ToString());
             var modeTwo = int.Parse(parameterMode[1].ToString());
-            var modeThree = int.Parse(parameterMode[0].ToString());
-
-            var parameterOne = 0;
-            var parameterTwo = 0;
-            var outputIndex = 0;
-
-            try
-            {
-                parameterOne = GetParameter(instructions, pointer, modeOne, 1);
-                parameterTwo = GetParameter(instructions, pointer, modeTwo, 2);
-                outputIndex = modeThree == 0 ? instructions[pointer + 3] : pointer + 3;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                // Don't need the params 
-            }
-
+            var modeThree = int.Parse(parameterMode[0].ToString());          
+            
             switch (code)
             {
                 case OperationCode.Add:
-                    instructions[outputIndex] = parameterOne + parameterTwo;
+                    instructions[modeThree == 0 ? instructions[pointer + 3] : pointer + 3] = GetParameter(instructions, pointer, modeOne, 1) + GetParameter(instructions, pointer, modeTwo, 2);
                     pointer += 4;
-
-                    return true;
+                    break;
 
                 case OperationCode.Multiply:
-                    instructions[outputIndex] = parameterOne * parameterTwo;
+                    instructions[modeThree == 0 ? instructions[pointer + 3] : pointer + 3] = GetParameter(instructions, pointer, modeOne, 1) * GetParameter(instructions, pointer, modeTwo, 2);
                     pointer += 4;
-
-                    return true;
+                    break;
 
                 case OperationCode.Input:
                     instructions[instructions[pointer + 1]] = input[0];
                     pointer += 2;
                     input.RemoveAt(0);
-
-                    return true;
+                    break;
 
                 case OperationCode.Output:
-                    instructions[0] = parameterOne;
+                    instructions[0] = GetParameter(instructions, pointer, modeOne, 1);
                     pointer += 2;
-                    
-                    return true;
+                    ComputerState = ComputerState.Paused;
+                    break;
 
                 case OperationCode.JumpIfTrue:
-                    if (parameterOne != 0)
+                    if (GetParameter(instructions, pointer, modeOne, 1) != 0)
                     {
-                        pointer = parameterTwo;
+                        pointer = GetParameter(instructions, pointer, modeTwo, 2);
                     }
                     else
                     {
                         pointer += 3;
                     }
-                    
-                    return true;
+                    break;
 
                 case OperationCode.JumpIfFalse:
-                    if (parameterOne == 0)
+                    if (GetParameter(instructions, pointer, modeOne, 1) == 0)
                     {
-                        pointer = parameterTwo;
+                        pointer = GetParameter(instructions, pointer, modeTwo, 2);
                     }
                     else
                     {
                         pointer += 3;
                     }
-
-                    return true;
+                    break;
 
                 case OperationCode.LessThan:
-                    if (parameterOne < parameterTwo)
+                    if (GetParameter(instructions, pointer, modeOne, 1) < GetParameter(instructions, pointer, modeTwo, 2))
                     {
-                        instructions[outputIndex] = 1;
+                        instructions[modeThree == 0 ? instructions[pointer + 3] : pointer + 3] = 1;
                     }
                     else
                     {
-                        instructions[outputIndex] = 0;
+                        instructions[modeThree == 0 ? instructions[pointer + 3] : pointer + 3] = 0;
                     }
 
                     pointer += 4;
-
-                    return true;
+                    break;
 
                 case OperationCode.Equals:
-                    if (parameterOne == parameterTwo)
+                    if (GetParameter(instructions, pointer, modeOne, 1) == GetParameter(instructions, pointer, modeTwo, 2))
                     {
-                        instructions[outputIndex] = 1;
+                        instructions[modeThree == 0 ? instructions[pointer + 3] : pointer + 3] = 1;
                     }
                     else
                     {
-                        instructions[outputIndex] = 0;
+                        instructions[modeThree == 0 ? instructions[pointer + 3] : pointer + 3] = 0;
                     }
 
                     pointer += 4;
+                    break;
 
-                    return true;
-
-                default:
-                    IsRunning = false;
-                    return false;
+                case OperationCode.Stop:
+                    ComputerState = ComputerState.Stopped;
+                    break;
             }
+
+            return ComputerState;
         }
 
-        private static int GetParameter(IList<int> instructions, int counter, int param, int index)
+        private static int GetParameter(IList<int> instructions, int pointer, int mode, int index)
         {
-            return param == 0 ? instructions[instructions[counter + index]] : instructions[counter + index];
+            return mode == 0 ? instructions[instructions[pointer + index]] : instructions[pointer + index];
         }
     }
 }

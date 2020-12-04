@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
@@ -17,8 +16,12 @@ namespace _2019.Days
             var computer = new IntCodeComputer(new List<int>(intInput));
 
             computer.Input(1);
-            var result1 = computer.Run();
-
+            var result1 = 0;
+            while(computer.ComputerState != ComputerState.Stopped)
+            {
+                result1 = computer.Run();
+            }
+            
             computer.Restore();
 
             computer.Input(5);
