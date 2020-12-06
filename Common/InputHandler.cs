@@ -22,5 +22,30 @@ namespace Common
             var content = await File.ReadAllTextAsync($"Input/{day}.txt");
             return content.Split('-');
         }
+
+        public static async Task<IEnumerable<string>> GetInputWithNewLineSeparation(string day, string separator)
+        {
+            var lines = await GetInputByLineAsync(day);
+            var contentGroups = new List<string>();
+            var contentGroup = string.Empty;
+            var emptylines = 0;
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrEmpty(line))
+                {
+                    emptylines++;
+                    contentGroups.Add(contentGroup);
+                    contentGroup = string.Empty;
+                }
+                else
+                {
+                    contentGroup = string.Join(separator, contentGroup, line);
+                }
+            }
+
+            // Add the last group
+            contentGroups.Add(contentGroup);
+            return contentGroups;
+        }
     }
 }

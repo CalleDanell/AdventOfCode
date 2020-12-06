@@ -18,6 +18,7 @@ namespace _2020
             Console.WriteLine($"{nameof(Day03)}: {await new Day03().Solve(nameof(Day03))} { GetExecutionTime(stopWatch) } ms");
             Console.WriteLine($"{nameof(Day04)}: {await new Day04().Solve(nameof(Day04))} { GetExecutionTime(stopWatch) } ms");
             Console.WriteLine($"{nameof(Day05)}: {await new Day05().Solve(nameof(Day05))} { GetExecutionTime(stopWatch) } ms");
+            Console.WriteLine($"{nameof(Day06)}: {await new Day06().Solve(nameof(Day06))} { GetExecutionTime(stopWatch) } ms");
 
             stopWatch.Stop();
         }

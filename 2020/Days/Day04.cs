@@ -1,7 +1,6 @@
 ﻿using Common;
 using Common.Days;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,10 +11,8 @@ namespace _2020.Days
     {
         public async Task<(string, string)> Solve(string day)
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
-
-            var rawPassports = GetRawPassports(input);
-            var passports = rawPassports.Select(x => 
+            var input = await InputHandler.GetInputWithNewLineSeparation(day, " ");
+            var passports = input.Select(x => 
             {
                 var passportPropertyPairs = x.Trim().Split(' ');
                 return new Passport(
@@ -36,30 +33,6 @@ namespace _2020.Days
             var test = passports.Where(x => x.IsValidSecondTime);
 
             return (resultPartOne.ToString(), resultPartTwo.ToString());
-        }
-
-        private static IEnumerable<string> GetRawPassports(IEnumerable<string> input)
-        {
-            var rawPassports = new List<string>();
-            var passport = string.Empty;
-            var emptylines = 0;
-            foreach (var line in input)
-            {
-                if (string.IsNullOrEmpty(line))
-                {
-                    emptylines++;
-                    rawPassports.Add(passport);
-                    passport = string.Empty;
-                }
-                else
-                {
-                    passport = string.Join(" ", passport, line);
-                }
-            }
-
-            // Add the last passport
-            rawPassports.Add(passport);
-            return rawPassports;
         }
     }
 
