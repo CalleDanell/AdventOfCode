@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace _2019
 {
-    class Program
+    public class Program
     {
-        static async Task Main()
+        public static async Task Main()
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -24,7 +24,7 @@ namespace _2019
             stopWatch.Stop();
         }
 
-        static long GetExecutionTime(Stopwatch watch)
+        public static long GetExecutionTime(Stopwatch watch)
         {
             var time = watch.ElapsedMilliseconds;
             watch.Restart();
