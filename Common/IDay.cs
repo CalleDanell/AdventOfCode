@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Common.Days
+namespace Common
 {
     public interface IDay
     {

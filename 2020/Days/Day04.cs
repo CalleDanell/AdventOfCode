@@ -1,6 +1,4 @@
 ﻿using Common;
-using Common.Days;
-using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,25 +10,20 @@ namespace _2020.Days
         public async Task<(string, string)> Solve(string day)
         {
             var input = await InputHandler.GetInputWithNewLineSeparation(day, " ");
-            var passports = input.Select(x => 
-            {
-                var passportPropertyPairs = x.Trim().Split(' ');
-                return new Passport(
-                        Regex.Match(x, "(byr:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(iyr:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(eyr:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(hgt:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(hcl:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(ecl:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(pid:)([^\\s]+)")?.Groups[2]?.Value,
-                        Regex.Match(x, "(cid:)([^\\s]+)")?.Groups[2]?.Value
-                    );
-            });
+            var passports = input.Select(x => new Passport(
+                Regex.Match(x, "(byr:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(iyr:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(eyr:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(hgt:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(hcl:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(ecl:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(pid:)([^\\s]+)").Groups[2].Value,
+                Regex.Match(x, "(cid:)([^\\s]+)").Groups[2].Value
+            ));
 
-            var resultPartOne = passports.Count(x => x.IsValidFirstTime);
-            var resultPartTwo = passports.Count(x => x.IsValidSecondTime);
-
-            var test = passports.Where(x => x.IsValidSecondTime);
+            var enumerable = passports.ToList();
+            var resultPartOne = enumerable.Count(x => x.IsValidFirstTime);
+            var resultPartTwo = enumerable.Count(x => x.IsValidSecondTime);
 
             return (resultPartOne.ToString(), resultPartTwo.ToString());
         }
@@ -40,17 +33,17 @@ namespace _2020.Days
     {
         public Passport(string birthYear, string issueYear, string expirationYear, string height, string hairColor, string eyeColor, string passportId, string countryId)
         {
-            BirthYear = ValidateExisit(birthYear) ? birthYear : ValidateYears(birthYear, 1920, 2002);
-            IssueYear = ValidateExisit(issueYear) ? issueYear : ValidateYears(issueYear, 2010, 2020);
-            ExpirationYear = ValidateExisit(expirationYear) ? expirationYear : ValidateYears(expirationYear, 2020, 2030);
-            Height = ValidateExisit(height) ? height : ValidateHeight(height, 150, 193, 59, 76);
-            HairColor = ValidateExisit(hairColor) ? hairColor : ValidateHairColor(hairColor);
-            EyeColor = ValidateExisit(eyeColor) ? eyeColor : ValidateEyeColor(eyeColor);
-            PassportId = ValidateExisit(passportId) ? passportId : ValidatePid(passportId);
+            BirthYear = ValidateExist(birthYear) ? birthYear : ValidateYears(birthYear, 1920, 2002);
+            IssueYear = ValidateExist(issueYear) ? issueYear : ValidateYears(issueYear, 2010, 2020);
+            ExpirationYear = ValidateExist(expirationYear) ? expirationYear : ValidateYears(expirationYear, 2020, 2030);
+            Height = ValidateExist(height) ? height : ValidateHeight(height, 150, 193, 59, 76);
+            HairColor = ValidateExist(hairColor) ? hairColor : ValidateHairColor(hairColor);
+            EyeColor = ValidateExist(eyeColor) ? eyeColor : ValidateEyeColor(eyeColor);
+            PassportId = ValidateExist(passportId) ? passportId : ValidatePid(passportId);
             CountryId = countryId;
         }
 
-        private bool ValidateExisit(string s)
+        private bool ValidateExist(string s)
         {
             if(string.IsNullOrEmpty(s))
             {
@@ -82,7 +75,7 @@ namespace _2020.Days
 
         private string ValidateEyeColor(string s)
         {
-            var validColors = new string[] { "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
+            var validColors = new[] { "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
             if (!validColors.Contains(s))
             {
                 IsValidSecondTime = false;
@@ -96,17 +89,17 @@ namespace _2020.Days
             var height = s.Substring(0, s.Length - 2);
             if (unit.Equals("cm"))
             {
-                if (!int.TryParse(height, out int heightCm) || heightCm < minCm || heightCm > maxCm)
+                if (!int.TryParse(height, out var heightCm) || heightCm < minCm || heightCm > maxCm)
                 {
                     IsValidSecondTime = false;
-                };
+                }
             }
             else if (unit.Equals("in"))
             {
-                if (!int.TryParse(height, out int heightIn) || heightIn < minIn || heightIn > maxIn)
+                if (!int.TryParse(height, out var heightIn) || heightIn < minIn || heightIn > maxIn)
                 {
                     IsValidSecondTime = false;
-                };
+                }
             }
             else
             {
@@ -119,10 +112,10 @@ namespace _2020.Days
 
         private string ValidateYears(string s, int min, int max)
         {
-            if (!int.TryParse(s, out int year) || year < min || year > max)
+            if (!int.TryParse(s, out var year) || year < min || year > max)
             {
                 IsValidSecondTime = false;
-            };
+            }
 
             return s;
         }

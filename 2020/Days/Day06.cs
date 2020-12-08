@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Days;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,12 +10,13 @@ namespace _2020.Days
         public async Task<(string, string)> Solve(string day)
         {
             var input = await InputHandler.GetInputWithNewLineSeparation(day, " ");
-            
-            var noDuplicates = input.Select(x => new HashSet<char>(x.Replace(" ", string.Empty).ToCharArray()));
+
+            var enumerable = input.ToList();
+            var noDuplicates = enumerable.Select(x => new HashSet<char>(x.Replace(" ", string.Empty).ToCharArray()));
             var resultPartOne = noDuplicates.Sum(x => x.Count);
 
             var resultPartTwo = 0;
-            foreach(var group in input)
+            foreach(var group in enumerable)
             {
                 var trimmedGrp = group.Trim();
                 var peopleInGroup = trimmedGrp.Split(' ').Length;

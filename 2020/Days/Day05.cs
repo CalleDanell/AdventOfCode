@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Days;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +7,8 @@ namespace _2020.Days
 {
     public class Day05 : IDay
     {
-        const int PlaneRows = 128;
-        const int PlaneColumns = 8;
+        private const int PlaneRows = 128;
+        private const int PlaneColumns = 8;
 
         public async Task<(string, string)> Solve(string day)
         {
@@ -17,10 +16,11 @@ namespace _2020.Days
 
             var boardingPasses = input.Select(x => new BoardingPass(x, PlaneRows, PlaneColumns));
 
-            var resultPartOne = boardingPasses.Max(x => x.GetSeatId());
+            var enumerable = boardingPasses.ToList();
+            var resultPartOne = enumerable.Max(x => x.GetSeatId());
 
-            var missingRow = boardingPasses.GroupBy(x => x.Row).Where(x => x.Count() == 7).FirstOrDefault().Key;
-            var missingColumn = Enumerable.Range(0, PlaneColumns).Except(boardingPasses.Where(x => x.Row == missingRow).Select(x => x.Column)).FirstOrDefault();
+            var missingRow = enumerable.GroupBy(x => x.Row).FirstOrDefault(x => x.Count() == 7)?.Key;
+            var missingColumn = Enumerable.Range(0, PlaneColumns).Except(enumerable.Where(x => x.Row == missingRow).Select(x => x.Column)).FirstOrDefault();
                         
             var resultPartTwo = missingRow * 8 + missingColumn;
 
@@ -45,7 +45,7 @@ namespace _2020.Days
             return Row * 8 + Column;
         }
 
-        private int FindSeat(Queue spacePartitioning, int spaces)
+        private static int FindSeat(Queue spacePartitioning, int spaces)
         {
             var spaceArray = Enumerable.Range(0, spaces).ToArray();
             while (spacePartitioning.Count > 0)

@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Days;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +6,7 @@ namespace _2020.Days
 {
     public class Day01 : IDay
     {
-        const int result = 2020;
+        private const int Result = 2020;
 
         public async Task<(string, string)> Solve(string day)
         {
@@ -25,7 +24,7 @@ namespace _2020.Days
             for(var i = 0; i < values.Length; i++) 
                 for(var j = 0; j < values.Length; j++)
                 {
-                    if(values[i] + values[j] == result)
+                    if(values[i] + values[j] == Result)
                     {
                         return values[i] * values[j];
                     }
@@ -40,7 +39,7 @@ namespace _2020.Days
                 for (var j = 0; j < values.Length; j++)
                     for (var k = 0; k < values.Length; k++)
                     {
-                        if (values[i] + values[j] + values[k] == result)
+                        if (values[i] + values[j] + values[k] == Result)
                         {
                             return values[i] * values[j] * values[k];
                         }

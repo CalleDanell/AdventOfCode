@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Common;
-using Common.Days;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,8 +13,9 @@ namespace _2020.Days
         {
             var input = await InputHandler.GetInputByLineAsync(day);
 
-            var resultPartOne = FindTrees(GetGrid(input), 3, 1);
-            var resultPartTwo = FindTotalTrees(input);
+            var enumerable = input.ToList();
+            var resultPartOne = FindTrees(GetGrid(enumerable), 3, 1);
+            var resultPartTwo = FindTotalTrees(enumerable);
             
             return (resultPartOne.ToString(), resultPartTwo.ToString());
         }
@@ -37,7 +37,7 @@ namespace _2020.Days
             return grid;
         }
 
-        private static long FindTotalTrees(IEnumerable<string> input)
+        private static long FindTotalTrees(IList<string> input)
         {
             var pathsToTest = new List<(int, int)>
             {

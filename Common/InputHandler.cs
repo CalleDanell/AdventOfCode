@@ -28,12 +28,10 @@ namespace Common
             var lines = await GetInputByLineAsync(day);
             var contentGroups = new List<string>();
             var contentGroup = string.Empty;
-            var emptylines = 0;
             foreach (var line in lines)
             {
                 if (string.IsNullOrEmpty(line))
                 {
-                    emptylines++;
                     contentGroups.Add(contentGroup);
                     contentGroup = string.Empty;
                 }
