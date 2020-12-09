@@ -11,6 +11,11 @@ namespace Common
             return await File.ReadAllLinesAsync($"Input/{day}.txt");
         }
 
+        public static async Task<string> GetFullInput(string day)
+        {
+            return await File.ReadAllTextAsync($"Input/{day}.txt");
+        }
+
         public static async Task<IEnumerable<string>> GetInputByCommaSeparationAsync(string day)
         {
             var content = await File.ReadAllTextAsync($"Input/{day}.txt");
