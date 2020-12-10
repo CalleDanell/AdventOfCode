@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace _2020
 {
-    class Program
+    internal class Program
     {
-        static async Task Main()
+        private static async Task Main()
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -22,11 +22,12 @@ namespace _2020
             Console.WriteLine($"{nameof(Day07)}: {await new Day07().Solve(nameof(Day07))} { GetExecutionTime(stopWatch) } ms");
             Console.WriteLine($"{nameof(Day08)}: {await new Day08().Solve(nameof(Day08))} { GetExecutionTime(stopWatch) } ms");
             Console.WriteLine($"{nameof(Day09)}: {await new Day09().Solve(nameof(Day09))} { GetExecutionTime(stopWatch) } ms");
+            Console.WriteLine($"{nameof(Day10)}: {await new Day10().Solve(nameof(Day10))} { GetExecutionTime(stopWatch) } ms");
 
             stopWatch.Stop();
         }
 
-        static long GetExecutionTime(Stopwatch watch)
+        private static long GetExecutionTime(Stopwatch watch)
         {
             var time = watch.ElapsedMilliseconds;
             watch.Restart();
