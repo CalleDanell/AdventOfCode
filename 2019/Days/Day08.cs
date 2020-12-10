@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,16 +14,37 @@ namespace _2019.Days
         public async Task<(string, string)> Solve(string day)
         {
             var encodedImage = await InputHandler.GetFullInput(day);
-            var layers = GetImageLayers(encodedImage);
+            var layers = GetImageLayers(encodedImage).ToList();
 
-            var imageLayers = layers.ToList();
-            var result1 = IntegrityCheck(imageLayers);
+            var result1 = IntegrityCheck(layers);
 
-            var result2 = string.Empty;
+            var image = layers.First().ToList();
+            foreach (var layer in layers)
+            {
+                for(var i = 0; i < layer.Count(); i++)
+                {
+                    var current = image[i];
+                    if (current == '0' || current == '1') continue;
+                    if (current == '2')
+                    {
+                        image[i] = layer.ElementAt(i);
+                    }
+                }
+            }
 
-            return (result1.ToString(), result2);
+            PrintImage(image);
+
+            return (result1.ToString(), "See image above!");
         }
 
+        private static void PrintImage(IReadOnlyCollection<char> image)
+        {
+            for (var i = 0; i < image.Count; i += Width)
+            {
+                var row = image.Skip(i).Take(Width);
+                Console.WriteLine(new string(row.ToArray()).Replace("0", " ").Replace("1", "X"));
+            }
+        }
 
 
         private static int IntegrityCheck(IEnumerable<IEnumerable<char>> imageLayers)
