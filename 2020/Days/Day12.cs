@@ -12,12 +12,14 @@ namespace _2020.Days
         {
             var input = await InputHandler.GetInputByLineAsync(day);
             var navigationInstructions = input.Select(x => new NavigationInstruction(x));
+            var instructions = navigationInstructions.ToList();
 
-            var navCpu = new NavigationComputer(navigationInstructions);
+            var navCpu1 = new NavigationComputer(instructions);
+            var result1 = navCpu1.Navigate();
 
-            var result1 = navCpu.Navigate();
-            var result2 = string.Empty;
-
+            var navCpu2 = new NavigationComputer(instructions);
+            var result2 = navCpu2.WayPointNavigate();
+            
             return (result1.ToString(), result2.ToString());
         }
     }
@@ -26,7 +28,11 @@ namespace _2020.Days
     {
         private Action currentLatitude = Action.East;
         private readonly Queue<NavigationInstruction> instructions;
+
+
         private (int x, int y) currentPosition = (0, 0);
+        private (int x, int y) wayPointRelativePosition = (10, 1);
+
         private readonly Dictionary<Action, (int x, int y)> navigationTable = new Dictionary<Action, (int x , int y)>
         {
             { Action.East, (1, 0) },
@@ -48,15 +54,65 @@ namespace _2020.Days
             this.instructions = new Queue<NavigationInstruction>(instructions);
         }
 
+        public int WayPointNavigate()
+        {
+            while (instructions.Count > 0)
+            {
+                var instruction = instructions.Dequeue();
+                switch (instruction.Action)
+                {
+                    case Action.Forward:
+                        currentPosition.x += wayPointRelativePosition.x * instruction.Value;
+                        currentPosition.y += wayPointRelativePosition.y * instruction.Value;
+                        break;
+                    case Action.Left:
+                        RotateWayPoint(-1, instruction.Value);
+                        break;
+                    case Action.Right:
+                        RotateWayPoint(1, instruction.Value);
+                        break;
+                    case Action.North:
+                    case Action.South:
+                    case Action.West:
+                    case Action.East:
+                        var newDirection = navigationTable[instruction.Action];
+                        wayPointRelativePosition.x += newDirection.x * instruction.Value;
+                        wayPointRelativePosition.y += newDirection.y * instruction.Value;
+                        break;
+                }
+            }
+
+            return Math.Abs(currentPosition.x) + Math.Abs(currentPosition.y);
+        }
+
+        private void RotateWayPoint(int direction, int degrees)
+        {
+            var latitudesToTurn = degrees / 90 * direction;
+            for (var i = 0; i < Math.Abs(latitudesToTurn); i++)
+            {
+                var temp = wayPointRelativePosition;
+                if (latitudesToTurn < 0)
+                {
+                    wayPointRelativePosition.x = temp.y * -1;
+                    wayPointRelativePosition.y = temp.x;
+                }
+                else
+                {
+                    wayPointRelativePosition.x = temp.y;
+                    wayPointRelativePosition.y = temp.x * -1;
+                }
+            }
+        }
+
         public int Navigate()
         {
             while (instructions.Count > 0)
             {
                 var instruction = instructions.Dequeue();
-                var (x, y) = navigationTable[currentLatitude];
                 switch (instruction.Action)
                 { 
                     case Action.Forward:
+                        var (x, y) = navigationTable[currentLatitude];
                         currentPosition.x += x * instruction.Value;
                         currentPosition.y += y * instruction.Value;
                         break;
