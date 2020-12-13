@@ -11,9 +11,9 @@ namespace _2019.Days
         private const string You = "YOU";
         private const string Santa = "SAN";
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day06));
 
             var solarSystem = SetupSolarSystemMap(input);
 
@@ -24,7 +24,7 @@ namespace _2019.Days
             result2.Remove(You);
             result2.Remove(Santa);
 
-            return (result1.ToString(), result2.Count.ToString());
+            return (nameof(Day06), result1.ToString(), result2.Count.ToString());
         }
 
         private static int TotalOrbitsToCom(Dictionary<string, string> solarSystem)

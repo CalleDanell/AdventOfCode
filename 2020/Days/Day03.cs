@@ -9,15 +9,15 @@ namespace _2020.Days
     {
         public const int GridWidth = 31; 
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day03));
 
             var enumerable = input.ToList();
             var resultPartOne = FindTrees(GetGrid(enumerable), 3, 1);
             var resultPartTwo = FindTotalTrees(enumerable);
             
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day03), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
         private static IEnumerable<Coordinate> GetGrid(IEnumerable<string> input)

@@ -4,6 +4,6 @@ namespace Common
 {
     public interface IDay
     {
-        Task<(string, string)> Solve(string day);
+        Task<(string, string, string)> Solve();
     }
 }

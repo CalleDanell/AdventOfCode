@@ -6,15 +6,15 @@ namespace _2019.Days
 {
     public class Day01 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day01));
             var intInput = input.Select(int.Parse).ToArray();
 
             var resultPartOne = intInput.Sum(CalculateFuel);
             var resultPartTwo = intInput.Sum(CalculateTotalWeight);
 
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day01), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
         private static int CalculateFuel(int value)

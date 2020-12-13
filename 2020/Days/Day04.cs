@@ -7,9 +7,9 @@ namespace _2020.Days
 {
     public class Day04 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputWithNewLineSeparation(day, " ");
+            var input = await InputHandler.GetInputWithNewLineSeparation(nameof(Day04), " ");
             var passports = input.Select(x => new Passport(
                 Regex.Match(x, "(byr:)([^\\s]+)").Groups[2].Value,
                 Regex.Match(x, "(iyr:)([^\\s]+)").Groups[2].Value,
@@ -25,7 +25,7 @@ namespace _2020.Days
             var resultPartOne = enumerable.Count(x => x.IsValidFirstTime);
             var resultPartTwo = enumerable.Count(x => x.IsValidSecondTime);
 
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day04), resultPartOne.ToString(), resultPartTwo.ToString());
         }
     }
 

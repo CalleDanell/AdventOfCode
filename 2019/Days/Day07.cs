@@ -7,9 +7,9 @@ namespace _2019.Days
 {
     public class Day07 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var instructions = await InputHandler.GetInputByCommaSeparationAsync(day);
+            var instructions = await InputHandler.GetInputByCommaSeparationAsync(nameof(Day07));
             var program = instructions.Select(int.Parse).ToList();
 
             int[] validNumbersOne = { 0, 1, 2, 3, 4 };
@@ -19,7 +19,7 @@ namespace _2019.Days
             
             var result2 = GetMaxOutputWithFeedbackLoop(GetPermutations(validNumbersTwo, 5).ToList(), program);
 
-            return (result1, result2);
+            return (nameof(Day07), result1, result2);
         }
 
         private static string GetMaxOutputWithFeedbackLoop(List<IEnumerable<int>> combinations, List<int> program)

@@ -7,9 +7,9 @@ namespace _2019.Days
 {
     public class Day05 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByCommaSeparationAsync(day);
+            var input = await InputHandler.GetInputByCommaSeparationAsync(nameof(Day05));
             var intInput = input.Select(int.Parse).ToList();
 
             var computer = new IntCodeComputer(new List<int>(intInput));
@@ -26,7 +26,7 @@ namespace _2019.Days
             computer.Input(5);
             var result2 = computer.Run();
 
-            return (result1.ToString(), result2.ToString());
+            return (nameof(Day05), result1.ToString(), result2.ToString());
         }
     }
 }

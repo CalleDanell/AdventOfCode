@@ -8,9 +8,9 @@ namespace _2020.Days
 {
     public class Day10 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day10));
 
             var outputJoltages = input.Select(int.Parse).ToList();
             var deviceRating = outputJoltages.Max() + 3;
@@ -24,7 +24,7 @@ namespace _2020.Days
             var result1 = FindJoltAdapterChain(orderedJoltages, 1, 3);
             var result2 = FindNumberOfPaths(orderedJoltages);
 
-            return (result1.ToString(), result2.ToString());
+            return (nameof(Day10), result1.ToString(), result2.ToString());
         }
 
         private static long FindNumberOfPaths(IReadOnlyList<int> orderedJoltages)

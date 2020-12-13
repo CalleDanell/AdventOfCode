@@ -10,9 +10,9 @@ namespace _2020.Days
         private const int PlaneRows = 128;
         private const int PlaneColumns = 8;
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day05));
 
             var boardingPasses = input.Select(x => new BoardingPass(x, PlaneRows, PlaneColumns));
 
@@ -24,7 +24,7 @@ namespace _2020.Days
                         
             var resultPartTwo = missingRow * 8 + missingColumn;
 
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day05), resultPartOne.ToString(), resultPartTwo.ToString());
         }
     }
 

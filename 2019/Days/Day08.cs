@@ -11,9 +11,9 @@ namespace _2019.Days
         private const int Width = 25;
         private const int Height = 6;
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var encodedImage = await InputHandler.GetFullInput(day);
+            var encodedImage = await InputHandler.GetFullInput(nameof(Day08));
             var layers = GetImageLayers(encodedImage).ToList();
 
             var result1 = IntegrityCheck(layers);
@@ -34,7 +34,7 @@ namespace _2019.Days
 
             PrintImage(image);
 
-            return (result1.ToString(), "See image above!");
+            return (nameof(Day08), result1.ToString(), "See image above!");
         }
 
         private static void PrintImage(IReadOnlyCollection<char> image)

@@ -7,15 +7,15 @@ namespace _2019.Days
 {
     public class Day02 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByCommaSeparationAsync(day);
+            var input = await InputHandler.GetInputByCommaSeparationAsync(nameof(Day02));
             var intInput = input.Select(int.Parse).ToList();
 
             var resultOne = GetOutputFromNounAndVerb(intInput, 12, 2);
             var resultTwo = FindNounAndVerb(intInput);
 
-            return (resultOne, resultTwo);
+            return (nameof(Day02), resultOne, resultTwo);
         }
 
         private static string GetOutputFromNounAndVerb(List<int> intInput, int noun, int verb)

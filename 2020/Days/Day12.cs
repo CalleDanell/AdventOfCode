@@ -8,9 +8,9 @@ namespace _2020.Days
 {
     public class Day12 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day12));
             var navigationInstructions = input.Select(x => new NavigationInstruction(x));
             var instructions = navigationInstructions.ToList();
 
@@ -20,7 +20,7 @@ namespace _2020.Days
             var navCpu2 = new NavigationComputer(instructions);
             var result2 = navCpu2.WayPointNavigate();
             
-            return (result1.ToString(), result2.ToString());
+            return (nameof(Day12), result1.ToString(), result2.ToString());
         }
     }
 

@@ -8,15 +8,15 @@ namespace _2020.Days
     {
         private const int Result = 2020;
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day01));
             var intInput = input.Select(int.Parse).ToArray();
 
             var resultPartOne = FindTwo(intInput);
             var resultPartTwo = FindThree(intInput);
             
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day01), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
         private static int FindTwo(int [] values)

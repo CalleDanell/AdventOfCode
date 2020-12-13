@@ -8,9 +8,9 @@ namespace _2020.Days
 {
     public class Day08 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day08));
             var instructions = input.Select(x => new Instruction(x));
 
             var console = new GameConsole(instructions.ToList());      
@@ -21,7 +21,7 @@ namespace _2020.Days
             
             var resultPartTwo = FindTheCorruptInstruction(console);
 
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day08), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
         private static int FindTheCorruptInstruction(GameConsole console)

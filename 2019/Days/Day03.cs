@@ -8,9 +8,9 @@ namespace _2019.Days
 {
     public class Day03 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day03));
 
             var enumerable = input.ToList();
             var instructions1 = enumerable.ElementAt(0).Split(',').Select(GetDirectionsFromInput);
@@ -24,7 +24,7 @@ namespace _2019.Days
             var result = intersections.Min(x => Math.Abs(x.Item1) + Math.Abs(x.Item2));
             var result2 = intersections.Min(x => wire1[x] + wire2[x]);
 
-            return (result.ToString(), result2.ToString());
+            return (nameof(Day03), result.ToString(), result2.ToString());
         }
 
         private static Dictionary<(int, int), int> PlaceWireOnBoard(IEnumerable<(string, int)> instructions)

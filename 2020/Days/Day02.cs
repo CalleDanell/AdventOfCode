@@ -7,9 +7,9 @@ namespace _2020.Days
 {
     public class Day02 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day02));
             var passwordsAndRules = input.Select(x =>
             {
                 var parts = x.Split(':');
@@ -19,7 +19,7 @@ namespace _2020.Days
             var resultPartOne = passwordsAndRules.Count(IsValidPasswordOne);
             var resultPartTwo = passwordsAndRules.Count(IsValidPasswordTwo);
             
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day02), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
         private static bool IsValidPasswordOne(Tuple<PasswordRuleSet, string> passwordAndRule)

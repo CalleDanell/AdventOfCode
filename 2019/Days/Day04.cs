@@ -8,14 +8,14 @@ namespace _2019.Days
 {
     public class Day04 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByDashSeparationAsync(day);
+            var input = await InputHandler.GetInputByDashSeparationAsync(nameof(Day04));
 
             var intInput = input.Select(int.Parse).ToList();
             var (result1, result2) = GetNumberOfPasswordCombinations(intInput.ElementAt(0), intInput.ElementAt(1));
 
-            return (result1.ToString(), result2.ToString());
+            return (nameof(Day04), result1.ToString(), result2.ToString());
         }
 
         private static (int, int) GetNumberOfPasswordCombinations(int startValue, int endValue)

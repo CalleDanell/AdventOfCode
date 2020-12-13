@@ -7,9 +7,9 @@ namespace _2020.Days
 {
     public class Day06 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputWithNewLineSeparation(day, " ");
+            var input = await InputHandler.GetInputWithNewLineSeparation(nameof(Day06), " ");
 
             var enumerable = input.ToList();
             var noDuplicates = enumerable.Select(x => new HashSet<char>(x.Replace(" ", string.Empty).ToCharArray()));
@@ -24,7 +24,7 @@ namespace _2020.Days
                 resultPartTwo += yesPerQuestion.Count(x => x == peopleInGroup);
             }
 
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day06), resultPartOne.ToString(), resultPartTwo.ToString());
         }
     }
 }

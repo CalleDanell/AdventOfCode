@@ -9,15 +9,15 @@ namespace _2020.Days
     {
         private const int PreambleLength = 25;
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day09));
             var numberSeries = input.Select(long.Parse).ToList();
 
             var erroneousNumber = FindErroneousNumber(numberSeries);
             var resultPartTwo = FindEncryptionWeakness(numberSeries, erroneousNumber);
 
-            return (erroneousNumber.ToString(), resultPartTwo.ToString());
+            return (nameof(Day09), erroneousNumber.ToString(), resultPartTwo.ToString());
         }
 
         private static long FindEncryptionWeakness(IReadOnlyCollection<long> numberSeries, long erroneousNumber)

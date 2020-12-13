@@ -11,9 +11,9 @@ namespace _2020.Days
     {
         const string MyBag = "shiny gold";
 
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day07));
 
             var bags = input.ToDictionary(x => ProcessInput(x).Item1, x => ProcessInput(x).Item2);
 
@@ -30,7 +30,7 @@ namespace _2020.Days
 
             var resultPartTwo = CalculateCount(bags.GetValueOrDefault(MyBag), bags);
 
-            return (resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day07), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
         private static int CalculateCount(IEnumerable<Bag> bagRules, IReadOnlyDictionary<string, IEnumerable<Bag>> bags)

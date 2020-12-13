@@ -7,9 +7,9 @@ namespace _2020.Days
 {
     public class Day11 : IDay
     {
-        public async Task<(string, string)> Solve(string day)
+        public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(day);
+            var input = await InputHandler.GetInputByLineAsync(nameof(Day11));
             var currentLayout = input.Select((line, y) =>
             {
                 var array = line.ToCharArray();
@@ -19,7 +19,7 @@ namespace _2020.Days
             var result1 = FindOccupiedSeats(currentLayout, 4, 1);
             var result2 = FindOccupiedSeats(currentLayout, 5,  100);
 
-            return (result1.ToString(), result2.ToString());
+            return (nameof(Day11), result1.ToString(), result2.ToString());
         }
 
         private static int FindOccupiedSeats(Dictionary<(int X, int Y), char> currentLayout, int maxAdjacent, int length)
