@@ -16,10 +16,11 @@ namespace _2020.Days
 
             var instructionGroups = GetInstructionGroups(instructions);
 
-            var maskedValues = RunProgram(instructionGroups);
-            
-            var result1 = maskedValues.Select(x => CharArrayTo36Int(x.Value)).Sum();
-            var result2 = string.Empty;
+            var maskedValuesNoFloats = RunProgram(instructionGroups, false);
+            var maskedValuesWithFloats = RunProgram(instructionGroups, true);
+
+            var result1 = maskedValuesNoFloats.Select(x => CharArrayTo36Int(x.Value)).Sum();
+            var result2 = maskedValuesWithFloats.Select(x => CharArrayTo36Int(x.Value)).Sum();
 
             return (nameof(Day14), result1.ToString(), result2.ToString());
         }
@@ -48,23 +49,48 @@ namespace _2020.Days
             return instructionGroups;
         }
 
-        private static Dictionary<int, char[]> RunProgram(Dictionary<string, List<(int address, string digits)>> instructionGroups)
+        private static Dictionary<long, char[]> RunProgram(Dictionary<string, List<(int address, string digits)>> instructionGroups, bool floating)
         {
-            var dict = new Dictionary<int, char []>();
+            var dict = new Dictionary<long, char []>();
             foreach (var (mask, valueTuples) in instructionGroups)
             {
                 var maskArray = mask.ToCharArray();
                 foreach (var (address, digits) in valueTuples)
                 {
-                    var digitArray = digits.ToCharArray();
-                    var result = Mask(digitArray, maskArray);
-                    if (dict.ContainsKey(address))
+                    if (floating)
                     {
-                        dict[address] = result;
+                        var binaryAddress = Convert.ToString(long.Parse(address.ToString()), 2).PadLeft(36, '0').ToCharArray();
+                        var result = new string(Mask(binaryAddress, maskArray, true));
+
+                        var combinations = new List<char[]>();
+                        GenerateAllCombinations(result, combinations);
+                        
+                        foreach(var combo in combinations)
+                        {
+                            var adr = CharArrayTo36Int(combo);
+                            var digitArray = digits.ToCharArray();
+                            if (dict.ContainsKey(adr))
+                            {
+                                dict[adr] = digitArray;
+                            }
+                            else
+                            {
+                                dict.Add(adr, digitArray);
+                            }
+                        }
                     }
                     else
                     {
-                        dict.Add(address, result);
+                        var digitArray = digits.ToCharArray();
+                        var result = Mask(digitArray, maskArray, false);
+                        if (dict.ContainsKey(address))
+                        {
+                            dict[address] = result;
+                        }
+                        else
+                        {
+                            dict.Add(address, result);
+                        }
                     }
                 }
             }
@@ -72,12 +98,34 @@ namespace _2020.Days
             return dict;
         }
 
-        private static char[] Mask(char[] digitArray, char[] maskArray)
+        private static void GenerateAllCombinations(string address, List<char[]> output)
+        {
+            if (address.All(x => x != 'X'))
+            {
+                output.Add(new List<char>(address).ToArray());
+                return;
+            }
+
+            var lastIndex = address.LastIndexOf('X');
+
+            GenerateAllCombinations(address.Remove(lastIndex, 1).Insert(lastIndex, "0"), output);
+            GenerateAllCombinations(address.Remove(lastIndex, 1).Insert(lastIndex, "1"), output);
+        }
+
+        private static char[] Mask(char[] digitArray, char[] maskArray, bool floating)
         {
             var resultArray = new char[digitArray.Length];
             for (var i = 0; i < digitArray.Length; i++)
             {
-                if (!maskArray[i].Equals('X') && !digitArray[i].Equals(maskArray[i]))
+                if (floating && maskArray[i].Equals('X'))
+                {
+                    resultArray[i] = maskArray[i];
+                }
+                else if(floating && maskArray[i].Equals('0'))
+                {
+                    resultArray[i] = digitArray[i];
+                }
+                else if (!maskArray[i].Equals('X') && !digitArray[i].Equals(maskArray[i]))
                 {
                     resultArray[i] = maskArray[i];
                 }
