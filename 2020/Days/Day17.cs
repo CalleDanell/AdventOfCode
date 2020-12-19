@@ -17,11 +17,9 @@ namespace _2020.Days
             var initialCubes = GetInitialCubes(input);
             var cubes = InitGrid(initialCubes, TotalRounds * 2);
 
-            RunCycles(cubes);
+            //RunCycles(cubes);
 
-            var result1 = cubes.Count(x => x.Active);
-
-
+            var result1 = "Too slow...";
             var result2 = string.Empty;
 
             return (nameof(Day17), result1.ToString(), result2.ToString());
