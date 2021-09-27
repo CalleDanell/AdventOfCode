@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using _2018.Days;
 using Common;
@@ -12,7 +11,7 @@ namespace _2018
         {
             var days = new List<IDay>
             {
-                new Day01(), new Day02(), new Day03(),
+                new Day01(), new Day02(), new Day03(), new Day04()
             };
 
             var solver = new Solver();
