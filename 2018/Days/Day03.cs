@@ -11,11 +11,12 @@ namespace _2018.Days
         {
             var input = await InputHandler.GetInputByLineAsync(nameof(Day03));
             var claims = input.Select(x => new Claim(x));
-            var claimsMap = MapClaims(claims);
+            var enumerable = claims.ToList();
+            var claimsMap = MapClaims(enumerable);
 
             var resultPartOne = claimsMap.Count(x => x.Value > 1);
 
-            var resultPartTwo = GetNonOverlappingClaim(claims, claimsMap).Id;
+            var resultPartTwo = GetNonOverlappingClaim(enumerable, claimsMap).Id;
 
             return (nameof(Day03), resultPartOne.ToString(), resultPartTwo.ToString());
         }
