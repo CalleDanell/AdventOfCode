@@ -13,7 +13,7 @@ namespace _2021
             var days = new List<IDay>
             {
                 new Day01(), new Day02(), new Day03(), new Day04(),
-                new Day05(),
+                new Day05(), new Day06()
             };
 
             var solver = new Solver();
