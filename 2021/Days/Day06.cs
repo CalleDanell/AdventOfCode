@@ -3,6 +3,7 @@ using Common;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using System.Globalization;
 
 namespace _2021.Days
 {
@@ -23,7 +24,7 @@ namespace _2021.Days
             var resultPartOne = ProduceFish(startingFishAgeDistribution, 80);
             var resultPartTwo = ProduceFish(startingFishAgeDistribution, 256);
 
-            return (nameof(Day06), resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day06), resultPartOne.ToString(CultureInfo.InvariantCulture), resultPartTwo.ToString(CultureInfo.InvariantCulture));
         }
 
         private decimal ProduceFish(IEnumerable<int> startingAges, int days)

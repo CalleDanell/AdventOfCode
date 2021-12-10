@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Common;
 using System.Threading.Tasks;
+using Common.Coordinates;
 
 namespace _2021.Days
 {
@@ -17,7 +17,7 @@ namespace _2021.Days
             var maxX = lines.Max(x => x.X2) + 1;
             var maxY = lines.Max(x => x.Y2) + 1;
 
-            var map = BuildMap(maxX, maxY);
+            var map = BuildCoordinateSystem(maxX, maxY);
 
             DrawLines(lines.Where(x => x.Direction().Equals(Line.Vertical) || x.Direction().Equals(Line.Horizontal)), map);
             var resultPartOne = map.Count(x => x.Value >= 2);
@@ -36,7 +36,7 @@ namespace _2021.Days
             }
         }
 
-        private static Dictionary<Coordinate, int> BuildMap(int maxX, int maxY)
+        private static Dictionary<Coordinate, int> BuildCoordinateSystem(int maxX, int maxY)
         {
             var map = new Dictionary<Coordinate, int>();
             for (var i = 0; i <= maxX; i++)
@@ -48,31 +48,6 @@ namespace _2021.Days
             }
 
             return map;
-        }
-    }
-
-    public class Coordinate
-    {
-        public Coordinate(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public int X { get; }
-        public int Y { get; }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-                return false;
-            var c = (Coordinate)obj;
-            return X.Equals(c.X) && Y.Equals(c.Y);
-        }
-
-        public override int GetHashCode()
-        {
-            return Tuple.Create(X, Y).GetHashCode();
         }
     }
 
