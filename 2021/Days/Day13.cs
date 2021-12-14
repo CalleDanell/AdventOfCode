@@ -106,6 +106,8 @@ namespace _2021.Days
             return left.ToDictionary(c => c.Key, c => c.Value);
         }
 
+
+        // This part is slow, should not keep track of all the coordinates until all of the folding is completed. 
         private static Dictionary<Coordinate, bool> BuildPaperGrid(IEnumerable<Coordinate> markedCoordinates)
         {
             var grid = new Dictionary<Coordinate, bool>();
