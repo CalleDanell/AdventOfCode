@@ -72,7 +72,7 @@ namespace _2021.Days
             var resultPartOne = numberOfFlashesAfter100Steps;
             var resultPartTwo = step + 1;
 
-            return (nameof(Day09), resultPartOne.ToString(), resultPartTwo.ToString());
+            return (nameof(Day11), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
 

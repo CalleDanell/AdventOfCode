@@ -65,7 +65,7 @@ namespace _2021.Days
             var resultPartOne = corruptedScore;
             var resultPartTwo = incompleteScores.OrderByDescending(x => x).ElementAt(incompleteScores.Count / 2);
 
-            return (nameof(Day09), resultPartOne.ToString(), resultPartTwo.ToString(CultureInfo.InvariantCulture));
+            return (nameof(Day10), resultPartOne.ToString(), resultPartTwo.ToString(CultureInfo.InvariantCulture));
         }
 
         private static int GetIncompleteScore(char c)
