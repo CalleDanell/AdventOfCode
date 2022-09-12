@@ -26,5 +26,20 @@ namespace Common.Coordinates
         {
             return Tuple.Create(X, Y).GetHashCode();
         }
+
+        public List<Coordinate> GetAdjacent()
+        {
+            var up = new Coordinate(X, Y - 1);
+            var down = new Coordinate(X, Y + 1);
+            var left = new Coordinate(X - 1, Y);
+            var right = new Coordinate(X + 1, Y);
+
+            var upLeft = new Coordinate(X - 1, Y - 1);
+            var upRight = new Coordinate(X + 1, Y - 1);
+            var downLeft = new Coordinate(X - 1, Y + 1);
+            var downRight = new Coordinate(X + 1, Y + 1);
+
+            return new List<Coordinate> { up, down, left, right, upLeft, upRight, downLeft, downRight };
+        }
     }
 }

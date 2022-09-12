@@ -31,7 +31,7 @@ namespace _2021.Days
                 while (readyToFlash.Any())
                 {
                     var current = readyToFlash.Pop();
-                    var adjacent = GetAdjacent(current);
+                    var adjacent = current.GetAdjacent();
 
                     if (hasFlashed.Contains(current))
                     {
@@ -73,22 +73,6 @@ namespace _2021.Days
             var resultPartTwo = step + 1;
 
             return (nameof(Day11), resultPartOne.ToString(), resultPartTwo.ToString());
-        }
-
-
-        private static List<Coordinate> GetAdjacent(Coordinate coordinate)
-        {
-            var up = new Coordinate(coordinate.X, coordinate.Y - 1);
-            var down = new Coordinate(coordinate.X, coordinate.Y + 1);
-            var left = new Coordinate(coordinate.X - 1, coordinate.Y);
-            var right = new Coordinate(coordinate.X + 1, coordinate.Y);
-
-            var upLeft = new Coordinate(coordinate.X - 1, coordinate.Y - 1);
-            var upRight = new Coordinate(coordinate.X + 1, coordinate.Y - 1);
-            var downLeft = new Coordinate(coordinate.X - 1, coordinate.Y + 1);
-            var downRight = new Coordinate(coordinate.X + 1, coordinate.Y + 1);
-
-            return new List<Coordinate> { up, down, left, right, upLeft, upRight, downLeft, downRight };
         }
 
         private static Dictionary<Coordinate, int> BuildGrid(IEnumerable<string> input)
