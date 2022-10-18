@@ -1,5 +1,4 @@
 ﻿using Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +21,7 @@ namespace _2021.Days
 
             var resultPartOne = Play(players, dice, board);
 
-            return (nameof(Day21), string.Empty, string.Empty);
+            return (nameof(Day21), resultPartOne.ToString(), string.Empty);
         }
 
         public int Play(List<Player>  players, Dice dice, Board board)
@@ -55,7 +54,6 @@ namespace _2021.Days
             {
                 options.Enqueue(i);
             }
-
         }
 
         public int Roll(int times)
