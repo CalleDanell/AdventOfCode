@@ -1,8 +1,6 @@
 ﻿using _2022.Days;
 using Common;
 
-
-
 var days = new List<IDay>
     {
         new Day01()

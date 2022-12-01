@@ -35,7 +35,7 @@ namespace _2021.Days
                 caveTwo.AddConnection(caveOne);
             }
 
-            var test = Navigate(caves);
+            //var test = Navigate(caves);
 
             var resultPartOne = 0;
             var resultPartTwo = 1;
@@ -43,25 +43,25 @@ namespace _2021.Days
             return (nameof(Day12), resultPartOne.ToString(), resultPartTwo.ToString());
         }
 
-        public int Navigate(IEnumerable<Cave> caves)
-        {
-            var path = new List<Cave>();
-            var current = caves.FirstOrDefault(x => x.IsStart);
-            path.Add(current);
+        //public int Navigate(IEnumerable<Cave> caves)
+        //{
+        //    var path = new List<Cave>();
+        //    var current = caves.FirstOrDefault(x => x.IsStart);
+        //    path.Add(current);
             
-            while(caves.Any(x => x.)
-            {
-                current = current.GetNextConnection();
-                path.Add(current);
+        //    while(caves.Any(x => x.)
+        //    {
+        //        current = current.GetNextConnection();
+        //        path.Add(current);
 
-                if (current.IsEnd)
-                {
-                    return path.Count;
-                }
+        //        if (current.IsEnd)
+        //        {
+        //            return path.Count;
+        //        }
 
-                var next = current.GetNextConnection();
-            }
-        }
+        //        var next = current.GetNextConnection();
+        //    }
+        //}
     }
 
     public class Cave

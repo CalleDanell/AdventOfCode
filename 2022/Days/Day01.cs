@@ -19,12 +19,15 @@ namespace _2022.Days
                 } 
                 else
                 {
-                    calories.Add(int.Parse(line));
+                    if(int.TryParse(line, out int cal))
+                        calories.Add(cal);
                 }
             }
 
-            int resultPartOne = elves.OrderByDescending(elf => elf.Total).First().Total;
-            int resultPartTwo = elves.OrderByDescending(elf => elf.Total).Take(3).Sum(elf => elf.Total);
+            var elvesOrderedByCalories = elves.OrderByDescending(elf => elf.Total);
+
+            int resultPartOne = elvesOrderedByCalories.First().Total;
+            int resultPartTwo = elvesOrderedByCalories.Take(3).Sum(elf => elf.Total);
 
             return (nameof(Day01), resultPartOne.ToString(), resultPartTwo.ToString());
         }
