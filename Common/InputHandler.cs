@@ -28,7 +28,13 @@ namespace Common
             return content.Split('-');
         }
 
-        public static async Task<IEnumerable<string>> GetInputWithNewLineSeparation(string day, string separator)
+        /// <summary>
+        /// Uses an empty line to group input. 
+        /// </summary>
+        /// <param name="day">The day to read input for.</param>
+        /// <param name="separator">The separator between items in each group.</param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<string>> GetInputGroupWithNewLineSeparation(string day, string separator)
         {
             var lines = await GetInputByLineAsync(day);
             var contentGroups = new List<string>();

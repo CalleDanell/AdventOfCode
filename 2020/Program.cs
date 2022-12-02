@@ -1,5 +1,4 @@
 ﻿using _2020.Days;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common;
 
@@ -9,8 +8,8 @@ namespace _2020
     {
         private static async Task Main()
         {
-            var days = new List<IDay>
-            {
+            var solver = new Solver(10);
+            await solver.Solve(
                 new Day01(), new Day02(), new Day03(),
                 new Day04(), new Day05(), new Day06(),
                 new Day07(), new Day08(), new Day09(),
@@ -18,11 +17,7 @@ namespace _2020
                 new Day13(), new Day14(), new Day15(),
                 new Day16(), new Day17(), new Day18(),
                 new Day19()
-            };
-
-            var solver = new Solver();
-            solver.AddProblems(days);
-            await solver.SolveAll();
+                );
         }
     }
 }

@@ -9,7 +9,7 @@ namespace _2020.Days
     {
         public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputWithNewLineSeparation(nameof(Day04), " ");
+            var input = await InputHandler.GetInputGroupWithNewLineSeparation(nameof(Day04), " ");
             var passports = input.Select(x => new Passport(
                 Regex.Match(x, "(byr:)([^\\s]+)").Groups[2].Value,
                 Regex.Match(x, "(iyr:)([^\\s]+)").Groups[2].Value,

@@ -7,37 +7,57 @@ namespace Common
 {
     public class Solver
     {
-        private readonly IList<Task> tasks = new List<Task>();
+        private readonly List<Task> tasks = new List<Task>();
+        private int timeout;
 
-        public async Task SolveAll()
+        public Solver(int timeOutPerDay)
         {
-           await Task.WhenAll(tasks);
+            this.timeout = timeOutPerDay;
         }
 
-        public void AddProblem(IDay day)
+        public async Task Solve(params IDay[] days)
         {
-            tasks.Add(Task.Run(async () =>
+            foreach(var day in days)
             {
-                var watch = Stopwatch.StartNew();
-                watch.Start();
-                var result = await day.Solve();
-                return (watch, result);
-
-            }).ContinueWith(async x => 
-            {
-                var result = await x;
-                result.watch.Stop();
-                Console.WriteLine($"{result.result.Item1}: ({result.result.Item2}, {result.result.Item3}) - {result.watch.ElapsedMilliseconds} ms");
+                AddTask(day);
             }
-            ));
+
+            await Task.WhenAll(tasks);
         }
 
-        public void AddProblems(IEnumerable<IDay> days)
+        private void AddTask(IDay day)
         {
-            foreach (var day in days)
-            {
-                AddProblem(day);
-            }
+            var shouldTimeout = true;
+
+            var task = Task.WhenAny(
+                Task.Run(async () =>
+                {
+                    var watch = Stopwatch.StartNew();
+                    watch.Start();
+                    var result = await day.Solve();
+                    return (watch, result);
+                }).ContinueWith(async x =>
+                {
+                    var result = await x;
+                    result.watch.Stop();
+                    Console.WriteLine($"{result.result.Item1}: ({result.result.Item2}, {result.result.Item3}) - {result.watch.ElapsedMilliseconds} ms");
+
+                    // Completed so no timeout
+                    shouldTimeout = false;
+                }),
+
+                Task.Run(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(timeout));
+
+                    if(shouldTimeout)
+                    {
+                        Console.WriteLine($"{day.GetType().Name} took longer than {timeout}seconds and timed out...");
+                    }
+                })
+            );
+
+            tasks.Add(task);
         }
     }
 }

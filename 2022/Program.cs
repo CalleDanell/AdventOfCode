@@ -1,11 +1,8 @@
 ﻿using _2022.Days;
 using Common;
 
-var days = new List<IDay>
-    {
-        new Day01()
-    };
+var solver = new Solver(10);
 
-var solver = new Solver();
-solver.AddProblems(days);
-await solver.SolveAll();
+await solver.Solve(
+    new Day01(), new Day02()
+    );

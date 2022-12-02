@@ -6,23 +6,10 @@ namespace _2022.Days
     {
         public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputByLineAsync(nameof(Day01));
+            var input = await InputHandler.GetInputGroupWithNewLineSeparation(nameof(Day01), " ");
 
             var calories = new List<int>();
-            var elves = new List<Elf>();
-            foreach(var line in input)
-            {
-                if(string.IsNullOrEmpty(line))
-                {
-                    elves.Add(new Elf(calories));
-                    calories.Clear();
-                } 
-                else
-                {
-                    if(int.TryParse(line, out int cal))
-                        calories.Add(cal);
-                }
-            }
+            var elves = input.Select(x => new Elf(x.Trim().Split(" ").Select(int.Parse).ToList()));
 
             var elvesOrderedByCalories = elves.OrderByDescending(elf => elf.Total);
 

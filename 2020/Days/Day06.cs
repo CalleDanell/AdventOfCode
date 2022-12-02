@@ -9,7 +9,7 @@ namespace _2020.Days
     {
         public async Task<(string, string, string)> Solve()
         {
-            var input = await InputHandler.GetInputWithNewLineSeparation(nameof(Day06), " ");
+            var input = await InputHandler.GetInputGroupWithNewLineSeparation(nameof(Day06), " ");
 
             var enumerable = input.ToList();
             var noDuplicates = enumerable.Select(x => new HashSet<char>(x.Replace(" ", string.Empty).ToCharArray()));
