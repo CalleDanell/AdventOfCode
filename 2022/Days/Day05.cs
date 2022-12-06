@@ -10,11 +10,9 @@ namespace _2022.Days
             var day = GetType().Name;
             var input = await InputHandler.GetInputGroupWithNewLineSeparation(day, Environment.NewLine);
 
-            var crateInput = input.ElementAt(0).Split(Environment.NewLine).ToList();
-            crateInput.RemoveAt(0);
+            var crateInput = input.ElementAt(0).Split(Environment.NewLine).Skip(1).ToList();
 
-            var instructionInput = input.ElementAt(1).Split(Environment.NewLine).ToList();
-            instructionInput.RemoveAt(0);
+            var instructionInput = input.ElementAt(1).Split(Environment.NewLine).Skip(1).ToList();
             var instructions = instructionInput.Select(x => new Instruction(x));
 
             var resultPartOne = new string(ReArrange(GetCrates(crateInput), instructions, "single").Select(x => x.Value.Peek()).ToArray());
@@ -26,7 +24,6 @@ namespace _2022.Days
         public Dictionary<int, Stack<char>> ReArrange(Dictionary<int, Stack<char>> stacks, IEnumerable<Instruction> instructions, string mode)
         {
             var newStacks = new Dictionary<int, Stack<char>>(stacks);
-            
             foreach (var instruction in instructions)
             {
                 switch (mode)
