@@ -1,5 +1,4 @@
 ﻿using Common;
-using System.Xml.Linq;
 
 namespace _2022.Days
 {
