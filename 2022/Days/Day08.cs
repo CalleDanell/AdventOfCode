@@ -1,6 +1,4 @@
 ﻿using Common;
-using System;
-using System.Collections.Generic;
 
 namespace _2022.Days
 {
@@ -36,6 +34,7 @@ namespace _2022.Days
                     var left = grid[i].Take(j);
                     var right = grid[i].Skip(j + 1).Take(grid[i].Count - j);
 
+                    // Reverse to get the trees in the viewing direction. Not outside and in. 
                     var viewingDistanceAbove = GetViewDistance(above.Reverse(), current);
                     var viewingDistanceBelow = GetViewDistance(below, current);
                     var viewingDistanceLeft = GetViewDistance(left.Reverse(), current);
@@ -89,21 +88,5 @@ namespace _2022.Days
 
             return grid;
         }
-
-        //private static List<List<int>> GetGrid(IEnumerable<string> input)
-        //{
-        //    var grid = new List<List<int>>();
-        //    var length = input.First().Length;
-        //    grid.Add(Enumerable.Repeat(0, length + 2).ToList());
-        //    foreach (var line in input)
-        //    {
-        //        var paddedline = (0 + line + 0).Select(x => x - '0');
-        //        var row = new List<int>(paddedline);
-        //        grid.Add(row);
-        //    }
-
-        //    grid.Add(Enumerable.Repeat(0, length + 2).ToList());
-        //    return grid;
-        //}
     }
 }
