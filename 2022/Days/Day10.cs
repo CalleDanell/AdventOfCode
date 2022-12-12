@@ -1,6 +1,4 @@
 ﻿using Common;
-using System.Net;
-using System.Reflection.Metadata.Ecma335;
 
 namespace _2022.Days
 {
@@ -34,6 +32,7 @@ namespace _2022.Days
                     
                     if(PrintSolution)
                     {
+#pragma warning disable CS0162 // Unreachable code detected
                         if (spritePos.Contains(drawingPos))
                         {
                             Console.Write("#");
@@ -42,7 +41,7 @@ namespace _2022.Days
                         {
                             Console.Write(".");
                         }
-
+#pragma warning restore CS0162 // Unreachable code detected
 
                         if (cycles % 40 == 0)
                         {
