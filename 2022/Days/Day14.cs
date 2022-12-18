@@ -166,7 +166,6 @@ namespace _2022.Days
         public bool Sand { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
-
         public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
