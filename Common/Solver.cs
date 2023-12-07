@@ -40,7 +40,7 @@ namespace Common
                 {
                     var result = await x;
                     result.watch.Stop();
-                    Console.WriteLine($"{result.result.Item1}: ({result.result.Item2}, {result.result.Item3}) - {result.watch.ElapsedMilliseconds} ms");
+                    Console.WriteLine($"{result.result.Item1}: {result.result.Item2}  {result.result.Item3}  - {result.watch.ElapsedMilliseconds} ms");
 
                     // Completed so no timeout
                     shouldTimeout = false;
@@ -52,7 +52,7 @@ namespace Common
 
                     if(shouldTimeout)
                     {
-                        Console.WriteLine($"{day.GetType().Name} took longer than {timeout}seconds and timed out...");
+                        Console.WriteLine($"{day.GetType().Name} took longer than {timeout} seconds and timed out...");
                     }
                 })
             );
