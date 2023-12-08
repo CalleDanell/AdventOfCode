@@ -1,5 +1,4 @@
 ﻿using Common;
-using System.Runtime;
 
 namespace _2023.Days
 {
@@ -9,16 +8,27 @@ namespace _2023.Days
         public async Task<(string, string, string)> Solve()
         {
             var input = await InputHandler.GetInputByLineAsync(nameof(Day07));
-            var cards = input.Select(x => new Hand(x, true)).ToList();
+            
+            var cards = input.Select(x => new Hand(x, false)).ToList();
+            var cardsWithJoker = input.Select(x => new Hand(x, true)).ToList();
 
+            var count = GetRankings(cards);
+            var countWithJoker = GetRankings(cardsWithJoker);
+
+            return (nameof(Day07), count.ToString(), countWithJoker.ToString());
+        }
+
+        private static int GetRankings(List<Hand> cards)
+        {
             var sortedCards = cards.OrderBy(x => x.Ranking).ThenBy(x => x.Cards);
 
             var count = 0;
-            for(var i = 1; i < sortedCards.Count() + 1; i++) {
+            for (var i = 1; i < sortedCards.Count() + 1; i++)
+            {
                 count += sortedCards.ElementAt(i - 1).Bid * i;
             }
 
-            return (nameof(Day07), count.ToString(), 0.ToString());
+            return count;
         }
 
         public class Hand
