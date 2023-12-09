@@ -43,7 +43,8 @@ namespace _2023.Days
             var copies = new Queue<Card>();
             for (var i = 1; i < winningNumbers?.Count() + 1; i++)
             {
-                copies.Enqueue(cards[currentCard.Id + i]);
+                if (currentCard != null)
+                    copies.Enqueue(cards[currentCard.Id + i]);
             }
 
             return copies;
