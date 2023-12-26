@@ -11,8 +11,14 @@ namespace Common.Coordinates
             Y = y;
         }
 
-        public int X { get; }
-        public int Y { get; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
+
+        public void Move(int dx, int dy)
+        {
+            X += dx;
+            Y += dy;
+        }
 
         public override bool Equals(object obj)
         {
