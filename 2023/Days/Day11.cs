@@ -10,12 +10,14 @@ namespace _2023.Days
             var input = await InputHandler.GetInputByLineAsync(nameof(Day11));
             var universe = input.Select(x => x.ToCharArray());
 
-            var coordiantes = GenerateGrid(universe.ToList());
-            var expanded = ExpandUniverse(coordiantes, 1000000 - 1);
+            var coordiantes = GenerateGrid(universe);
+            var expandedOne = ExpandUniverse(coordiantes, 1);
+            var expandedTwo = ExpandUniverse(coordiantes, 1000000 - 1);
 
-            long sumOne = GetDistanceBetweenAllGalaxies(new Queue<Coordinate>(expanded));
+            long sumOne = GetDistanceBetweenAllGalaxies(new Queue<Coordinate>(expandedOne));
+            long sumTwo = GetDistanceBetweenAllGalaxies(new Queue<Coordinate>(expandedTwo));
 
-            return (nameof(Day11), sumOne.ToString(), 0.ToString());
+            return (nameof(Day11), sumOne.ToString(), sumTwo.ToString());
         }
 
         private static long GetDistanceBetweenAllGalaxies(Queue<Coordinate> galax)
@@ -62,7 +64,7 @@ namespace _2023.Days
         }
 
 
-        private static Dictionary<Coordinate, char> GenerateGrid(List<char[]> universe)
+        private static Dictionary<Coordinate, char> GenerateGrid(IEnumerable<char[]> universe)
         {
             var coordiantes = new Dictionary<Coordinate, char>();
 
