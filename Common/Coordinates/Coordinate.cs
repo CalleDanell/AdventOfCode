@@ -33,6 +33,26 @@ namespace Common.Coordinates
             return Tuple.Create(X, Y).GetHashCode();
         }
 
+        public Coordinate GetNorth()
+        {
+            return new Coordinate(X, Y - 1);
+        }
+        public Coordinate GetSouth()
+        {
+            return new Coordinate(X, Y + 1);
+        }
+
+        public Coordinate GetWest()
+        {
+            return new Coordinate(X - 1, Y);
+        }
+
+        public Coordinate GetEast()
+        {
+            return new Coordinate(X + 1, Y);
+        }
+
+
         public List<Coordinate> GetAdjacent()
         {
             var up = new Coordinate(X, Y - 1);
