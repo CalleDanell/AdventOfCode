@@ -9,10 +9,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Input\Day15.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Input\Day14.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Input\Day13.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Input\Day12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Input\Day11.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
