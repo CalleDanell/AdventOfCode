@@ -8,4 +8,4 @@ await solver.Solve(
     ////new Day05(),
     //new Day06(), new Day07(), new Day08(),
     //new Day09(), 
-    new Day15());
+    new Day16());

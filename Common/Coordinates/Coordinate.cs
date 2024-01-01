@@ -33,6 +33,37 @@ namespace Common.Coordinates
             return Tuple.Create(X, Y).GetHashCode();
         }
 
+        /// <summary>
+        /// 1 = North
+        /// 2 = West
+        /// 3 = South
+        /// 4 = East
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public Coordinate GetNextCoordinate(int direction)
+        {
+            Coordinate next = new(0, 0);
+            switch (direction)
+            {
+                case 1:
+                    next = GetNorth();
+                    break;
+                case 2:
+                    next = GetWest();
+                    break;
+                case 3:
+                    next = GetSouth();
+                    break;
+                case 4:
+                    next = GetEast();
+                    break;
+            }
+
+            return next;
+        }
+
+
         public Coordinate GetNorth()
         {
             return new Coordinate(X, Y - 1);
