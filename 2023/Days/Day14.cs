@@ -8,13 +8,7 @@ namespace _2023.Days
         public async Task<(string, string, string)> Solve()
         {
             var input = await InputHandler.GetInputByLineAsync(nameof(Day14));
-            var coordiantes = new Dictionary<Coordinate, char>();
-
-            for (var i = 0; i < input.Count(); i++)
-            for (var j = 0; j < input.ElementAt(i).Length; j++)
-            {
-                coordiantes.Add(new Coordinate(j, i), input.ElementAt(i)[j]);
-            }
+            var coordiantes = Utils.GenerateCoordinates(input);
 
             TiltRocks(coordiantes, 1);
             var southEdge = coordiantes.Max(x => x.Key.Y);
@@ -27,7 +21,6 @@ namespace _2023.Days
 
             var cache = new Dictionary<string, long>();
             var cyclesNeeded = numberOfCycles;
-            var foundCycle = false;
 
             for (long k = 1; k <= numberOfCycles; k++)
             {
@@ -77,7 +70,7 @@ namespace _2023.Days
 
             foreach (var rock in rocks)
             {
-                var next = GetNextCoordinate(rock.Key, direction);
+                var next = rock.Key.GetNextCoordinate(direction);
 
                 var prev = rock.Key;
                 while (state.TryGetValue(next, out var nextValue))
@@ -88,7 +81,7 @@ namespace _2023.Days
                         state[next] = 'O';
                         state[prev] = '.';
                         prev = next;
-                        next = GetNextCoordinate(next, direction);
+                        next = next.GetNextCoordinate(direction);
                     }
                     else
                     {
@@ -96,28 +89,6 @@ namespace _2023.Days
                     }
                 }
             }
-        }
-
-        private static Coordinate GetNextCoordinate(Coordinate rock, int direction)
-        {
-            Coordinate next = new(0, 0);
-            switch (direction)
-            {
-                case 1:
-                    next = rock.GetNorth();
-                    break;
-                case 2:
-                    next = rock.GetWest();
-                    break;
-                case 3:
-                    next = rock.GetSouth();
-                    break;
-                case 4:
-                    next = rock.GetEast();
-                    break;
-            }
-
-            return next;
         }
     }
 }

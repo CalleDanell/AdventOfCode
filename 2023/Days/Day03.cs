@@ -1,6 +1,5 @@
 ﻿using Common;
 using Common.Coordinates;
-using System.Collections.Generic;
 
 namespace _2023.Days
 {
@@ -9,15 +8,7 @@ namespace _2023.Days
         public async Task<(string, string, string)> Solve()
         {
             var input = await InputHandler.GetInputByLineAsync(nameof(Day03));
-            var coordiantes = new Dictionary<Coordinate, char>();
-
-            for (var i = 0; i < input.Count(); i++)
-            {
-                for (var j = 0; j < input.ElementAt(i).Length; j++)
-                {
-                    coordiantes.Add(new Coordinate(j, i), input.ElementAt(i)[j]);
-                }
-            }
+            var coordiantes = Utils.GenerateCoordinates(input);
 
             var xMax = coordiantes.Keys.Max(x => x.X);
 

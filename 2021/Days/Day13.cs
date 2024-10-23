@@ -152,8 +152,6 @@ namespace _2021.Days
                         row += "-";
                     }
                 }
-
-                Console.WriteLine(row);
             }
         }
     }

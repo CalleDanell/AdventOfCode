@@ -28,7 +28,6 @@ namespace _2023.Days
 
 
             var smallestOne = await FindSmallestLocaiton(input, partOneRanges);
-            Console.WriteLine("---");
             var smallestTwo = await FindSmallestLocaiton(input, partTwoRanges);
 
             return (nameof(Day05), smallestOne.Min().ToString(), smallestTwo.Min().ToString());
@@ -42,7 +41,6 @@ namespace _2023.Days
             {
                 tasks.Add(Task.Run(() =>
                 {
-                    Console.WriteLine("hello: " + range.Item1);
                     var current = range.Item1;
                     var min = long.MaxValue;
                     while (current <= range.Item2)
@@ -55,7 +53,6 @@ namespace _2023.Days
                     }
 
                     translated.Add(min);
-                    Console.WriteLine("Min value: " + min);
                 }));
             }
 

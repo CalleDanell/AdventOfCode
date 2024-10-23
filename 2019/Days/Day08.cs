@@ -42,7 +42,6 @@ namespace _2019.Days
             for (var i = 0; i < image.Count; i += Width)
             {
                 var row = image.Skip(i).Take(Width);
-                Console.WriteLine(new string(row.ToArray()).Replace("0", " ").Replace("1", "X"));
             }
         }
 

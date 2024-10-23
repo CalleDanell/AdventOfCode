@@ -10,6 +10,10 @@ namespace Common
         private readonly List<Task> tasks = new List<Task>();
         private int timeout;
 
+        /// <summary>
+        /// Solves days concurrently. Time out in seconds.
+        /// </summary>
+        /// <param name="timeOutPerDay">In seconds</param>
         public Solver(int timeOutPerDay)
         {
             this.timeout = timeOutPerDay;
@@ -30,27 +34,21 @@ namespace Common
             var shouldTimeout = true;
 
             var task = Task.WhenAny(
-                Task.Run(async () =>
-                {
-                    var watch = Stopwatch.StartNew();
-                    watch.Start();
-                    var result = await day.Solve();
-                    return (watch, result);
-                }).ContinueWith(async x =>
-                {
-                    var result = await x;
-                    result.watch.Stop();
-                    Console.WriteLine($"{result.result.Item1}: {result.result.Item2}  {result.result.Item3}  - {result.watch.ElapsedMilliseconds} ms");
+            Task.Run(async () =>
+            {
+                var watch = Stopwatch.StartNew();
+                var result = await day.Solve();
+                watch.Stop();
+                Console.WriteLine($"{result.Item1}: {result.Item2}  {result.Item3}  - {watch.ElapsedMilliseconds} ms");
 
-                    // Completed so no timeout
-                    shouldTimeout = false;
-                }),
+                // Mark as no timeout
+                shouldTimeout = false;
+            }),
 
                 Task.Run(async () =>
                 {
                     await Task.Delay(TimeSpan.FromSeconds(timeout));
-
-                    if(shouldTimeout)
+                    if (shouldTimeout)
                     {
                         Console.WriteLine($"{day.GetType().Name} took longer than {timeout} seconds and timed out...");
                     }

@@ -8,16 +8,7 @@ namespace _2023.Days
         public async Task<(string, string, string)> Solve()
         {
             var input = await InputHandler.GetInputByLineAsync(nameof(Day16));
-            var coordiantes = new Dictionary<Coordinate, char>();
-
-            for (var i = 0; i < input.Count(); i++)
-            {
-                for (var j = 0; j < input.ElementAt(i).Length; j++)
-                {
-                    var value = input.ElementAt(i)[j];
-                    coordiantes.Add(new Coordinate(j, i), value);
-                }
-            }
+            var coordiantes = Utils.GenerateCoordinates(input);
 
             //part one
             var startDirection = 4;
@@ -34,9 +25,9 @@ namespace _2023.Days
             var startSouth = coordiantes.Where(x => x.Key.Y == yMax);
 
             var best = 0;
-            foreach(var start in startWest)
+            foreach (var start in startWest)
             {
-                var energized = GetEnergizedTiles(coordiantes, new Coordinate(start.Key.X -1, start.Key.Y), 4).Count;
+                var energized = GetEnergizedTiles(coordiantes, new Coordinate(start.Key.X - 1, start.Key.Y), 4).Count;
                 if (energized >= best) best = energized;
             }
 
@@ -133,27 +124,5 @@ namespace _2023.Days
             return visited;
         }
 
-        private void Print(HashSet<Coordinate> visited, Dictionary<Coordinate, char> coords)
-        {
-            Console.WriteLine();
-            var xMax = coords.Max(x => x.Key.X);
-            var yMax = coords.Max(x => x.Key.Y);
-            for (var i = 0; i <= xMax; i++)
-            {
-                for (var j = 0; j <= yMax; j++)
-                {
-                    var current = new Coordinate(j, i);
-                    if (visited.Contains(current))
-                    {
-                        Console.Write('#');
-                    }
-                    else
-                    {
-                        Console.Write('.');
-                    }
-                }
-                Console.WriteLine();
-            }
-        }
     }
 }

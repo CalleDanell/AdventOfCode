@@ -83,7 +83,6 @@ namespace Common.Coordinates
             return new Coordinate(X + 1, Y);
         }
 
-
         public List<Coordinate> GetAdjacent()
         {
             var up = new Coordinate(X, Y - 1);
