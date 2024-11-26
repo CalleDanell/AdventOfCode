@@ -83,7 +83,7 @@ namespace Common.Coordinates
             return new Coordinate(X + 1, Y);
         }
 
-        public List<Coordinate> GetAdjacent()
+        public List<Coordinate> GetAdjacent(bool includeSelfLast)
         {
             var up = new Coordinate(X, Y - 1);
             var down = new Coordinate(X, Y + 1);
@@ -95,7 +95,10 @@ namespace Common.Coordinates
             var downLeft = new Coordinate(X - 1, Y + 1);
             var downRight = new Coordinate(X + 1, Y + 1);
 
-            return new List<Coordinate> { up, down, left, right, upLeft, upRight, downLeft, downRight };
+            var res = new List<Coordinate> { up, down, left, right, upLeft, upRight, downLeft, downRight };
+            if (includeSelfLast) res.Add(this);
+
+            return res;
         }
     }
 }
