@@ -31,7 +31,7 @@ namespace _2021.Days
                 while (readyToFlash.Any())
                 {
                     var current = readyToFlash.Pop();
-                    var adjacent = current.GetAdjacent();
+                    var adjacent = current.GetAdjacent(false);
 
                     if (hasFlashed.Contains(current))
                     {

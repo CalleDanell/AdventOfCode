@@ -20,6 +20,11 @@ namespace Common.Coordinates
             Y += dy;
         }
 
+        public override string ToString()
+        {
+            return $"{X}{Y}";
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

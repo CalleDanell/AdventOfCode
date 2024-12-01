@@ -1,7 +1,7 @@
 ﻿using Common.Coordinates;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Linq;
 
 namespace Common
@@ -42,6 +42,63 @@ namespace Common
                 }
                 Console.WriteLine();
             }
+        }
+
+        public static void Print(List<Coordinate> coords, char symbol)
+        {
+            Console.WriteLine();
+
+            var xMin = coords.Min(x => x.X);
+            var yMin = coords.Min(x => x.Y);
+            var xMax = coords.Max(x => x.X);
+            var yMax = coords.Max(x => x.Y);
+
+            for (var y = yMax ; y >= yMin; y--)
+            {
+                for (var x = xMin; x <= xMax; x++)
+                {
+                    var current = new Coordinate(x, y);
+                    if(coords.Contains(current))
+                    {
+                        Console.Write(symbol);
+                    } else
+                    {
+                        Console.Write('.');
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static void AppendToFile(List<Coordinate> coords, char symbol, string fileName)
+        {
+            var path = fileName + ".txt";
+
+            var xMin = coords.Min(x => x.X);
+            var yMin = coords.Min(x => x.Y);
+            var xMax = coords.Max(x => x.X);
+            var yMax = coords.Max(x => x.Y);
+
+            var lines = new List<string>();
+            for (var y = yMax; y >= yMin; y--)
+            {
+                var line = string.Empty;
+                for (var x = xMin; x <= xMax; x++)
+                {
+                    var current = new Coordinate(x, y);
+                    if (coords.Contains(current))
+                    {
+                        line += symbol;
+                    }
+                    else
+                    {
+                        line += ".";
+                    }
+                }
+                lines.Add(line);
+            }
+
+            File.AppendAllLines(path, lines);
         }
     }
 }

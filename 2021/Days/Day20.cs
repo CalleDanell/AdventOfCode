@@ -56,7 +56,7 @@ namespace _2021.Days
                     var coordinate = new Coordinate(x,y);
                     var binaryString = string.Empty;
 
-                    var adjacent = coordinate.GetAdjacent();
+                    var adjacent = coordinate.GetAdjacent(false);
                     adjacent.Add(coordinate);
                     var orderedCoordinates = adjacent.OrderBy(c => c.Y).ThenBy(c => c.X);
 

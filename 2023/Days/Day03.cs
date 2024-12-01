@@ -25,7 +25,7 @@ namespace _2023.Days
                 if (char.IsDigit(coordiante.Value))
                 {
                     currentNumber += coordiante.Value.ToString();
-                    var adjacent = coordiante.Key.GetAdjacent();
+                    var adjacent = coordiante.Key.GetAdjacent(false);
 
                     foreach (var adjacentCoord in adjacent)
                     {
