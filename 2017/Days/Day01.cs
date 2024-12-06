@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Common;
+﻿using Common;
 
-namespace _2018.Days
+namespace _2017.Days
 {
     public class Day01 : IDay
     {
