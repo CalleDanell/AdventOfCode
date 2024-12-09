@@ -2,4 +2,4 @@
 using Common;
 
 var solver = new Solver();
-await solver.Solve(new Day06());
+await solver.Solve(new Day09());
