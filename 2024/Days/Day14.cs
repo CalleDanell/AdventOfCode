@@ -5,14 +5,13 @@ namespace _2024.Days
 {
     public class Day14 : IDay
     {
-        private const int MaxX = 100; //101
-        private const int MaxY = 102; //103
+        private const int MaxX = 100;
+        private const int MaxY = 102;
 
         public async Task<(string, string, string)> Solve()
         {
             var day = GetType().Name;
             var input = await InputHandler.GetInputByLineAsync(day);
-
 
             var map = new Dictionary<Coordinate, char>();
             for (var y = 0; y < MaxY; y++)
@@ -22,7 +21,6 @@ namespace _2024.Days
                     map.Add(new Coordinate(x, y), '.');
                 }
             }
-
 
             var robots = new List<Robot>();
             foreach(var line in input)
@@ -46,36 +44,18 @@ namespace _2024.Days
                 {
                     r.Move();
                 }
-
                 WiriteToFile(map, robots, i);
             }
-
             
             var topLeft = robots.Count(x => x.X < xLine && x.Y < yLine);
             var topRight = robots.Count(x => x.X > xLine && x.Y < yLine);
             var botLeft = robots.Count(x => x.X < xLine && x.Y > yLine);
             var botRight = robots.Count(x => x.X > xLine && x.Y > yLine);
 
-
             long partOne = topLeft * topRight * botLeft * botRight;
             var partTwo = "Look for the iteration with a Christmas tress in the output.txt for";
 
             return (day, partOne.ToString(), partTwo.ToString());
-        }
-
-        private void Print(Dictionary<Coordinate, char> map, List<Robot> robots)
-        {
-            for (var y = 0; y <= MaxY; y++)
-            {
-                for (var x = 0; x <= MaxX; x++)
-                {
-                    var current = new Coordinate(x, y);
-
-                    Console.Write(robots.Count(x => x.CurrentPosition.Equals(current)));
-                    
-                }
-                Console.WriteLine();
-            }
         }
 
         private void WiriteToFile(Dictionary<Coordinate, char> map, List<Robot> robots, int iteration)
@@ -101,21 +81,17 @@ namespace _2024.Days
         }
 
         internal class Robot {
-
             public Coordinate CurrentPosition => new Coordinate(X, Y);
             public int X { get; private set; }
             public int Y { get; private set; }
             public int Vx { get; }
             public int Vy { get; }
-
-            private int MaxX = 0;
-            private int MaxY = 0;
-
+            private readonly int MaxX;
+            private readonly int MaxY;
             public Robot(int x, int y, int vx, int vy, int maxx, int maxy)
             {
                 X = x; Y = y; Vx = vx; Vy = vy; MaxX = maxx; MaxY = maxy;
             }
-
             public void Move()
             {
                 var newX = X + Vx;
@@ -143,7 +119,6 @@ namespace _2024.Days
 
                 X = newX;
                 Y = newY;
-
             }
         }
     }
